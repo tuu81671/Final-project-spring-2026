@@ -1,0 +1,11 @@
+# Secrets
+bot_token.py
+openai_token.py
+
+# Local Data
+pantry.json
+
+# Python/Mac Junk
+__pycache__/
+*.pyc
+.DS_Store
