@@ -4,15 +4,15 @@ import json
 import os
 from openai import OpenAI
 
-# Using your established names
+
 TOKEN = bot_token.DISCORD_TOKEN
 AITOKEN = bot_token.OPENAI_TOKEN
 
-# Initialize the OpenAI client
+
 ai_client = OpenAI(api_key=AITOKEN)
 
 class Client(discord.Client):
-    # --- NEW DATA HELPERS: Handles the pantry file ---
+   
     def load_pantry(self):
         try:
             if os.path.exists("pantry.json"):
@@ -27,7 +27,7 @@ class Client(discord.Client):
             json.dump(data, f, indent=4)
 
     async def on_ready(self):
-        # Creates pantry.json automatically if missing
+        
         if not os.path.exists("pantry.json"):
             self.save_pantry({})
         print(f"Logged on as {self.user}!")
@@ -41,7 +41,7 @@ class Client(discord.Client):
         user_input = message.content.lower()
         user_id = str(message.author.id)
 
-        # --- NEW COMMAND: Adding items to the separate file ---
+        
         if user_input.startswith("!add "):
             items_string = message.content[5:] 
             new_items = [item.strip().lower() for item in items_string.split(",")]
@@ -56,7 +56,7 @@ class Client(discord.Client):
             await message.channel.send(f"Added {', '.join(new_items)} to your pantry file.")
             return
 
-        # --- ORIGINAL MEAL LOGIC: Pulls from the file ---
+        
         elif "what should i eat for" in user_input:
             meal = ""
             if "breakfast" in user_input:
@@ -87,10 +87,10 @@ class Client(discord.Client):
                 await message.channel.send("sorry I do not understand")
         
         else:
-            # Strictly follows your requirement for anything else
+            
             await message.channel.send("sorry I do not understand")
 
-# Setup intents
+
 intents = discord.Intents.default()
 intents.message_content = True
 
